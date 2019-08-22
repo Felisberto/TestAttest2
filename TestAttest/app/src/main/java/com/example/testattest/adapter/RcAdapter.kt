@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.testattest.R
+import com.example.testattest.model.ModelTest
 
 
 /**
@@ -14,17 +16,27 @@ import com.example.testattest.R
  */
 class RcAdapter : Adapter<RcAdapter.VH>() {
 
+    lateinit  var listModel : List<ModelTest>
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): VH {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.adapter_item, p0, false)
         return VH(view)
     }
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = listModel.size
 
     override fun onBindViewHolder(p0: VH, p1: Int) {
+        p0.bindViews(p1)
     }
 
+    fun addItens(list: List<ModelTest>){
+        listModel = list
+    }
 
-    inner class VH(val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class VH(val view: View) : RecyclerView.ViewHolder(view) {
+        fun bindViews(int : Int){
+            view.findViewById<TextView>(R.id.tv1).text = "Nome"
+            view.findViewById<TextView>(R.id.tv2).text = int.toString()
+        }
     }
 }
